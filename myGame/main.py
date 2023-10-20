@@ -5,6 +5,7 @@ import pygame as pg
 from pygame.sprite import Group, Sprite
 import random
 import os
+from settings import *
 
 vec = pg.math.Vector2
 
@@ -12,22 +13,8 @@ vec = pg.math.Vector2
 game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, 'images')
 
-# game settings 
-WIDTH = 360
-HEIGHT = 480
-FPS = 30
-SCORE = 0
+# Took all settings and moved them to the file settings.py
 
-# player settings
-PLAYER_JUMP = 30
-PLAYER_GRAV = 1.5
-
-# define colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
 
 def draw_text(text, size, color, x, y):
     font_name = pg.font.match_font('arial')
@@ -157,13 +144,12 @@ plat2 = Platform(20, 150, 50, 30, "moving")
 
 # add instances to groups
 all_sprites.add(player)
-all_sprites.add(plat)
-all_sprites.add(plat1)
-all_sprites.add(plat2)
 
-all_platforms.add(plat)
-all_platforms.add(plat1)
-all_platforms.add(plat2)
+
+for plat in PLATFORM_LIST:
+    p = Platform(*plat)
+    all_sprites.add(p)
+    all_platforms.add(p)
 
 for i in range(0, 20):
     m = Mob(random.randint(0, WIDTH), random.randint(0, HEIGHT), 25, 25, "moving")
